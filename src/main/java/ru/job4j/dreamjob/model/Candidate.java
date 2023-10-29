@@ -30,7 +30,7 @@ public class Candidate {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, creationDate);
+        return Objects.hash(id);
     }
 
     public String getName() {
