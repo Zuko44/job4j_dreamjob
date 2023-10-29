@@ -25,7 +25,7 @@ public class Candidate {
             return false;
         }
         Candidate candidate = (Candidate) o;
-        return id == candidate.id && name.equals(candidate.name) && description.equals(candidate.description) && creationDate.equals(candidate.creationDate);
+        return id == candidate.id;
     }
 
     @Override
