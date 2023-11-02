@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.Vacancy;
-import ru.job4j.dreamjob.service.SimpleVacancyService;
 import ru.job4j.dreamjob.service.VacancyService;
 
 import java.util.Optional;
@@ -13,7 +12,14 @@ import java.util.Optional;
 @RequestMapping("/vacancies")
 public class VacancyController {
     /**private final VacancyRepository vacancyRepository = MemoryVacancyRepository.getInstance();*/
-    private final VacancyService vacancyService = SimpleVacancyService.getInstance();
+    /**
+     * private final VacancyService vacancyService = SimpleVacancyService.getInstance();
+     */
+    private final VacancyService vacancyService;
+
+    public VacancyController(VacancyService vacancyService) {
+        this.vacancyService = vacancyService;
+    }
 
     @GetMapping
     public String getAll(Model model) {
@@ -46,11 +52,11 @@ public class VacancyController {
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable int id) {
         /**var vacancyOptional = vacancyRepository.findById(id);
-        if (vacancyOptional.isEmpty()) {
-            model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
-            return "errors/404";
-        }
-        model.addAttribute("vacancy", vacancyOptional.get());*/
+         if (vacancyOptional.isEmpty()) {
+         model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
+         return "errors/404";
+         }
+         model.addAttribute("vacancy", vacancyOptional.get());*/
         var vacancyOptional = vacancyService.findById(id);
         if (vacancyOptional.isEmpty()) {
             model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
@@ -63,10 +69,10 @@ public class VacancyController {
     @PostMapping("/update")
     public String update(@ModelAttribute Vacancy vacancy, Model model) {
         /**var isUpdated = vacancyRepository.update(vacancy);
-        if (!isUpdated) {
-            model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
-            return "errors/404";
-        }*/
+         if (!isUpdated) {
+         model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
+         return "errors/404";
+         }*/
         var isUpdated = vacancyService.update(vacancy);
         if (!isUpdated) {
             model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
@@ -78,7 +84,7 @@ public class VacancyController {
     @GetMapping("/delete/{id}")
     public String delete(Model model, @PathVariable int id) {
         /**vacancyRepository.deleteById(id);
-        Optional<Vacancy> isDeleted = vacancyRepository.findById(id);*/
+         Optional<Vacancy> isDeleted = vacancyRepository.findById(id);*/
         vacancyService.deleteById(id);
         Optional<Vacancy> isDeleted = vacancyService.findById(id);
         if (isDeleted.isEmpty()) {
