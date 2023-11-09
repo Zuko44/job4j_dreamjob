@@ -1,19 +1,27 @@
 package ru.job4j.dreamjob.model.vacancy;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Vacancy;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
+@ThreadSafe
 @Repository
 public class MemoryVacancyRepository implements VacancyRepository {
-    /**private static final MemoryVacancyRepository INSTANCE = new MemoryVacancyRepository();*/
-    private final Map<Integer, Vacancy> vacancies = new HashMap<>();
-    private int nextId = 1;
+    /**
+     * private static final MemoryVacancyRepository INSTANCE = new MemoryVacancyRepository();
+     */
+    private final Map<Integer, Vacancy> vacancies = new ConcurrentHashMap<>();
+    /**
+     * private int nextId = 1;
+     */
+    private final AtomicInteger nextId = new AtomicInteger(0);
 
     private MemoryVacancyRepository() {
         save(new Vacancy(0, "Intern Java Developer",
@@ -30,14 +38,18 @@ public class MemoryVacancyRepository implements VacancyRepository {
                 "ok, so be it, let's add coffee to the agreement", LocalDateTime.now()));
     }
 
-    /**public static MemoryVacancyRepository getInstance() {
-        return INSTANCE;
-    }*/
+    /**
+     * public static MemoryVacancyRepository getInstance() {
+     * return INSTANCE;
+     * }
+     */
 
     @Override
     public Vacancy save(Vacancy vacancy) {
-        vacancy.setId(nextId++);
-        vacancies.put(vacancy.getId(), vacancy);
+        /**vacancy.setId(nextId++);
+         vacancies.put(vacancy.getId(), vacancy);*/
+        vacancy.setId(nextId.incrementAndGet());
+        vacancies.putIfAbsent(vacancy.getId(), vacancy);
         return vacancy;
     }
 
