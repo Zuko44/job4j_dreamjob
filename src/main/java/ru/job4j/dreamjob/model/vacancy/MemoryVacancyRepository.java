@@ -25,17 +25,17 @@ public class MemoryVacancyRepository implements VacancyRepository {
 
     private MemoryVacancyRepository() {
         save(new Vacancy(0, "Intern Java Developer",
-                "Fresh meat is urgently needed, interns - work quickly!", LocalDateTime.now(), true));
+                "Fresh meat is urgently needed, interns - work quickly!", LocalDateTime.now(), true, 1));
         save(new Vacancy(0, "Junior Java Developer",
-                "Young padawan needed to work for pennies", LocalDateTime.now(), true));
+                "Young padawan needed to work for pennies", LocalDateTime.now(), true, 2));
         save(new Vacancy(0, "Junior+ Java Developer",
-                "not a young padawan is required to work for pennies", LocalDateTime.now(), true));
+                "not a young padawan is required to work for pennies", LocalDateTime.now(), true, 3));
         save(new Vacancy(0, "Middle Java Developer",
-                "A dynamically developing gallery needs an experienced proger", LocalDateTime.now(), true));
+                "A dynamically developing gallery needs an experienced proger", LocalDateTime.now(), true, 1));
         save(new Vacancy(0, "Middle+ Java Developer",
-                "we'll hire you for cookies", LocalDateTime.now(), true));
+                "we'll hire you for cookies", LocalDateTime.now(), true, 2));
         save(new Vacancy(0, "Senior Java Developer",
-                "ok, so be it, let's add coffee to the agreement", LocalDateTime.now(), false));
+                "ok, so be it, let's add coffee to the agreement", LocalDateTime.now(), false, 3));
     }
 
     /**
@@ -64,7 +64,7 @@ public class MemoryVacancyRepository implements VacancyRepository {
          vacancy.getTitle(), vacancy.getDescription(), vacancy.getCreationDate())) != null;*/
         return vacancies.computeIfPresent(vacancy.getId(), (id, oldVacancy) -> {
             return new Vacancy(oldVacancy.getId(), vacancy.getTitle(), vacancy.getDescription(), vacancy.getCreationDate(),
-                    vacancy.getVisible());
+                    vacancy.getVisible(), vacancy.getCityId());
         }) != null;
     }
 
