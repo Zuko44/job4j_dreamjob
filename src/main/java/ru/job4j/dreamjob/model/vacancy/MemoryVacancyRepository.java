@@ -25,17 +25,21 @@ public class MemoryVacancyRepository implements VacancyRepository {
 
     private MemoryVacancyRepository() {
         save(new Vacancy(0, "Intern Java Developer",
-                "Fresh meat is urgently needed, interns - work quickly!", LocalDateTime.now(), true, 1));
+                "Fresh meat is urgently needed, interns - work quickly!", LocalDateTime.now(), true,
+                1, 0));
         save(new Vacancy(0, "Junior Java Developer",
-                "Young padawan needed to work for pennies", LocalDateTime.now(), true, 2));
+                "Young padawan needed to work for pennies", LocalDateTime.now(), true, 2, 0));
         save(new Vacancy(0, "Junior+ Java Developer",
-                "not a young padawan is required to work for pennies", LocalDateTime.now(), true, 3));
+                "not a young padawan is required to work for pennies", LocalDateTime.now(), true, 3,
+                0));
         save(new Vacancy(0, "Middle Java Developer",
-                "A dynamically developing gallery needs an experienced proger", LocalDateTime.now(), true, 1));
+                "A dynamically developing gallery needs an experienced proger", LocalDateTime.now(), true,
+                1, 0));
         save(new Vacancy(0, "Middle+ Java Developer",
-                "we'll hire you for cookies", LocalDateTime.now(), true, 2));
+                "we'll hire you for cookies", LocalDateTime.now(), true, 2, 0));
         save(new Vacancy(0, "Senior Java Developer",
-                "ok, so be it, let's add coffee to the agreement", LocalDateTime.now(), false, 3));
+                "ok, so be it, let's add coffee to the agreement", LocalDateTime.now(), false, 3,
+                0));
     }
 
     /**
@@ -64,7 +68,7 @@ public class MemoryVacancyRepository implements VacancyRepository {
          vacancy.getTitle(), vacancy.getDescription(), vacancy.getCreationDate())) != null;*/
         return vacancies.computeIfPresent(vacancy.getId(), (id, oldVacancy) -> {
             return new Vacancy(oldVacancy.getId(), vacancy.getTitle(), vacancy.getDescription(), vacancy.getCreationDate(),
-                    vacancy.getVisible(), vacancy.getCityId());
+                    vacancy.getVisible(), vacancy.getCityId(), vacancy.getFileId());
         }) != null;
     }
 
