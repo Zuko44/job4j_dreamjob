@@ -34,6 +34,7 @@ public class Vacancy {
         this.creationDate = creationDate;
         this.visible = visible;
         this.cityId = cityId;
+        this.fileId = fileId;
     }
 
     public int getFileId() {
