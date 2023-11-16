@@ -25,17 +25,17 @@ public class MemoryCandidateRepository implements CandidateRepository {
 
     private MemoryCandidateRepository() {
         save(new Candidate(0, "Intern Antilochus",
-                "I’ll get a job for food (it’s possible without food)", LocalDateTime.now(), 0));
+                "I’ll get a job for food (it’s possible without food)", LocalDateTime.now(), 1, 0));
         save(new Candidate(0, "Junior Guidon",
-                "very young and green", LocalDateTime.now(), 0));
+                "very young and green", LocalDateTime.now(), 2, 0));
         save(new Candidate(0, "Junior+ Evlampius",
-                "seasoned Jun. I can even do something.", LocalDateTime.now(), 0));
+                "seasoned Jun. I can even do something.", LocalDateTime.now(), 3, 0));
         save(new Candidate(0, "Middle Kapiton",
-                "king of the market. the coveted shot.", LocalDateTime.now(), 0));
+                "king of the market. the coveted shot.", LocalDateTime.now(), 1, 0));
         save(new Candidate(0, "Middle+ Pavsikaky",
-                "rates are rising.", LocalDateTime.now(), 0));
+                "rates are rising.", LocalDateTime.now(), 2, 0));
         save(new Candidate(0, "Senior Satyr",
-                "what should I add here? I'm good.", LocalDateTime.now(), 0));
+                "what should I add here? I'm good.", LocalDateTime.now(), 3, 0));
     }
 
     /**
@@ -61,7 +61,7 @@ public class MemoryCandidateRepository implements CandidateRepository {
     @Override
     public boolean update(Candidate candidate) {
         return candidates.computeIfPresent(candidate.getId(), (id, oldVacancy) -> new Candidate(oldVacancy.getId(),
-                candidate.getName(), candidate.getDescription(), candidate.getCreationDate(),
+                candidate.getName(), candidate.getDescription(), candidate.getCreationDate(), candidate.getCityId(),
                 candidate.getFileId())) != null;
     }
 
