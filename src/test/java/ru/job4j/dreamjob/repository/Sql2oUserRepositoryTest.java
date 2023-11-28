@@ -3,16 +3,15 @@ package ru.job4j.dreamjob.repository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.sql2o.Sql2oException;
 import ru.job4j.dreamjob.configuration.DatasourceConfiguration;
 import ru.job4j.dreamjob.model.User;
 
+import java.util.Optional;
 import java.util.Properties;
 
 import static java.util.Collections.emptyList;
 import static java.util.Optional.empty;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class Sql2oUserRepositoryTest {
     private static Sql2oUserRepository sql2oUserRepository;
@@ -53,8 +52,10 @@ class Sql2oUserRepositoryTest {
     void whenSaveThanException() {
         var user = sql2oUserRepository.save(new User(0, "name@gmail.com", "Миша", "123456"));
         var user2 = new User(0, "name@gmail.com", "Миша", "123456");
-        assertThatThrownBy(() -> sql2oUserRepository.save(user2))
-                .isInstanceOf(Sql2oException.class);
+        /**assertThatThrownBy(() -> sql2oUserRepository.save(user2))
+         .isInstanceOf(Sql2oException.class)
+         .hasMessageContaining("Нарушение уникального индекса или первичного ключа:");*/
+        assertThat(sql2oUserRepository.save(user2)).isEqualTo(Optional.empty());
     }
 
     @Test
