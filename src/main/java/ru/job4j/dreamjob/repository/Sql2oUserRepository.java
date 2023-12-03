@@ -31,9 +31,9 @@ public class Sql2oUserRepository implements UserRepository {
             user.setId(generatedId);
             return Optional.of(user);
         } catch (Sql2oException e) {
-            logger.error("Error when saving user. The user is not saved.");
-            return Optional.empty();
+            logger.error("Error when saving user. The user is not saved.", e);
         }
+        return Optional.empty();
     }
 
     @Override
