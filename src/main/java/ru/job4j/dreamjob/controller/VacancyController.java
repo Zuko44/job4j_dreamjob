@@ -10,7 +10,6 @@ import ru.job4j.dreamjob.model.Vacancy;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.VacancyService;
 
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @ThreadSafe
@@ -30,7 +29,8 @@ public class VacancyController {
     }
 
     @GetMapping
-    public String getAll(Model model, HttpSession session) {
+    /**public String getAll(Model model, HttpSession session) {*/
+    public String getAll(Model model) {
         /**model.addAttribute("vacancies", vacancyRepository.findAll());*/
         /**var user = (User) session.getAttribute("user");
         if (user == null) {
@@ -43,7 +43,8 @@ public class VacancyController {
     }
 
     @GetMapping("/create")
-    public String getCreationPage(Model model, HttpSession session) {
+    /**public String getCreationPage(Model model, HttpSession session) {*/
+    public String getCreationPage(Model model) {
         /**var user = (User) session.getAttribute("user");
         if (user == null) {
             user = new User();
@@ -79,7 +80,7 @@ public class VacancyController {
     }
 
     @GetMapping("/{id}")
-    public String getById(Model model, @PathVariable int id, HttpSession session) {
+    public String getById(Model model, @PathVariable int id) {
         /**var vacancyOptional = vacancyRepository.findById(id);
          if (vacancyOptional.isEmpty()) {
          model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
@@ -131,7 +132,7 @@ public class VacancyController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(Model model, @PathVariable int id, HttpSession session) {
+    public String delete(Model model, @PathVariable int id) {
         /**vacancyRepository.deleteById(id);
          Optional<Vacancy> isDeleted = vacancyRepository.findById(id);*/
         /**var user = (User) session.getAttribute("user");

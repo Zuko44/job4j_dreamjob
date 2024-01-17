@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String getRegistrationPage(Model model, HttpSession session) {
+    public String getRegistrationPage(Model model) {
         /**var user = (User) session.getAttribute("user");
         if (user == null) {
             user = new User();
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage(Model model, HttpSession session) {
+    public String getLoginPage(Model model) {
         /**var user = (User) session.getAttribute("user");
         if (user == null) {
             user = new User();
